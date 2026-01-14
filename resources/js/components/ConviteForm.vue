@@ -190,30 +190,32 @@
                     <v-row justify="center">
                         <v-col cols="6" md="4" lg="3" class="text-center" v-for="value in eventDetails"
                             :key="value.title">
-                            <v-row>
-                                <v-col cols="12">
-                                    <div class="detail-icon">
-                                        <v-icon size="48" class="mb-3 base-color">{{ value.icon }}</v-icon>
-                                    </div>
-                                </v-col>
-                                <v-col cols="12">
-                                    <div class="detail-icon">
-                                        <h3 class="detail-title mb-3">{{ value.title }}</h3>
-                                    </div>
-                                </v-col>
-                                <v-col cols="12">
-                                    <div class="detail-content mb-4" v-html="value.content"></div>
-                                    <v-btn class="button link-button" v-if="value.link" variant="outlined" size="small"
-                                        color="primary">
-                                        <a :href="value.link" target="_blank" class="detail-link"
-                                            style="text-decoration: none;">
-                                            Ver no Mapa
-                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                        </a>
-                                    </v-btn>
-                                </v-col>
+                            <div class="local-card">
+                                <v-row>
+                                    <v-col cols="12">
+                                        <div class="detail-icon">
+                                            <v-icon size="48" class="mb-3 base-color">{{ value.icon }}</v-icon>
+                                        </div>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <div class="detail-icon">
+                                            <h3 class="detail-title mb-3">{{ value.title }}</h3>
+                                        </div>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <div class="detail-content mb-4" v-html="value.content"></div>
+                                        <v-btn class="button link-button" v-if="value.link" variant="outlined"
+                                            size="small" color="primary">
+                                            <a :href="value.link" target="_blank" class="detail-link"
+                                                style="text-decoration: none;">
+                                                Ver no Mapa
+                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                            </a>
+                                        </v-btn>
+                                    </v-col>
 
-                            </v-row>
+                                </v-row>
+                            </div>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -230,40 +232,44 @@
                         <p class="section-subtitle">
                             Para manter a harmonia das cores, agradecemos que evitem os tons abaixo.
                         </p>
-                        <div class="dress-code-card">
-                            <v-row class="justify-center">
-                                <!-- Título -->
+                        <v-row class="justify-center">
+                            <v-col cols="12" style="display: flex; justify-content: center;">
+                                <div class="dress-code-card">
+                                    <v-row class="justify-center">
+                                        <!-- Título -->
 
-                                <!-- Cores reservadas -->
-                                <v-col cols="6" md="6" class="d-flex justify-center">
-                                    <v-row>
-                                        <v-col cols="12">
-                                            <v-avatar color="surface-variant woman" size="64"></v-avatar>
+                                        <!-- Cores reservadas -->
+                                        <v-col cols="6" md="6" class="d-flex justify-center dress-color-avatar">
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <v-avatar color="surface-variant woman" size="64"></v-avatar>
+                                                </v-col>
+                                                <v-col cols="12">
+                                                    <p class="section-subtitle">Para Elas</p>
+                                                </v-col>
+                                            </v-row>
                                         </v-col>
-                                        <v-col cols="12">
-                                            <p class="section-subtitle">Para Elas</p>
+
+                                        <v-col cols="6" class="d-flex justify-center dress-color-avatar">
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <v-avatar color="surface-variant man" size="64"></v-avatar>
+                                                </v-col>
+                                                <v-col cols="12">
+                                                    <p class="section-subtitle">Para Eles</p>
+                                                </v-col>
+                                            </v-row>
+                                        </v-col>
+                                        <!-- Nota opcional -->
+                                        <v-col cols="12" class="text-center mt-8">
+                                            <p class="section-info">
+                                                Se tiver alguma dúvida, pode perguntar-nos!
+                                            </p>
                                         </v-col>
                                     </v-row>
-                                </v-col>
-
-                                <v-col cols="6" class="d-flex justify-center">
-                                    <v-row>
-                                        <v-col cols="12">
-                                            <v-avatar color="surface-variant man" size="64"></v-avatar>
-                                        </v-col>
-                                        <v-col cols="12">
-                                            <p>Para Eles</p>
-                                        </v-col>
-                                    </v-row>
-                                </v-col>
-                                <!-- Nota opcional -->
-                                <!-- <v-col cols="12" class="text-center mt-8">
-                                <p class="note">
-                                    Se tiveres dúvidas sobre o traje, podes <a href="/contacto">contactar-nos</a> 💛
-                                </p>
-                            </v-col> -->
-                            </v-row>
-                        </div>
+                                </div>
+                            </v-col>
+                        </v-row>
                     </div>
                 </v-container>
             </section>
@@ -928,6 +934,12 @@ onUnmounted(() => {
     font-weight: 500;
 }
 
+.section-info {
+    font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+    color: #0C2452;
+    font-weight: 500;
+}
+
 .dress-code-card {
     /* border: 2px solid #4A4A4A; */
     padding: 30px;
@@ -1069,33 +1081,50 @@ onUnmounted(() => {
     background-attachment: fixed;
 }
 
+.local-card {
+    min-height: 300px;
+    transition: all .5s ease-in-out;
+}
+
+.local-card:hover {
+    transform: scale(1.1);
+}
+
 .detail-icon {
-    color: var(--primary-color);
+    color: #0C2452
 }
 
 .detail-title {
     font-size: clamp(1.1rem, 2vw, 1.4rem);
     font-weight: 600;
-    color: var(--accent-color);
+    color: #0C2452;
     margin-bottom: 1rem;
 }
 
 .detail-content {
     font-size: clamp(0.9rem, 1.5vw, 1rem);
-    color: var(--text-light);
+    color: #4A4A4A;
     line-height: 1.6;
 }
 
 .link-button {
-    border-color: #5B8FA3 !important;
+    border: 2px solid;
+    border-radius: 0px;
+    border-color: #0C2452 !important;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .link-button:hover {
-    background-color: #F0E1D8 !important;
+    background-color: #0C2452 !important;
+    border-color: #ffffff !important;
+}
+
+.link-button:hover a {
+    color: #ffffff !important;
 }
 
 .detail-link {
-    color: #5B8FA3 !important;
+    color: #0C2452 !important;
     font-weight: bold;
 }
 
@@ -1133,6 +1162,14 @@ onUnmounted(() => {
             #DCE6F7 50%,
             #B4CCE9 100%);
     background-attachment: fixed;
+}
+
+.dress-color-avatar {
+    transition: all .5s ease-in-out;
+}
+
+.dress-color-avatar:hover {
+    transform: scale(1.2);
 }
 
 .woman {
@@ -1254,6 +1291,12 @@ onUnmounted(() => {
 @media (max-width: 480px) {
     .countdown-value {
         font-size: clamp(2rem, 8vw, 3rem);
+    }
+}
+
+@media (min-width: 769px) {
+    .dress-code-card {
+        width: 60%;
     }
 }
 
