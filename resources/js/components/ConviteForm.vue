@@ -105,7 +105,7 @@
             <section id="historia" class="historia-section">
                 <div class="historia-background"></div>
                 <v-container>
-                    <v-row justify="center mb-10">
+                    <v-row justify="center">
                         <v-col cols="12" md="8" lg="6">
                             <v-card class="historia-card" elevation="8">
                                 <v-card-text class="pa-8 pa-md-12">
