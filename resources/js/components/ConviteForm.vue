@@ -531,6 +531,72 @@
                             </p>
                         </v-col>
                     </v-row>
+                    <div class="footer-divider my-4"></div>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            <v-row>
+                                <v-col cols="12" class="text-center">
+                                    <p class="footer-text">Contactos</p>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <v-row>
+                                <v-col cols="12" md="6" class="text-center">
+                                    <p class="footer-text">Sílvia</p>
+                                </v-col>
+                                <v-col cols="12" md="6" class="text-center">
+                                    <p class="footer-text">João</p>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <!-- Silvia Socials -->
+                                <v-col cols="6" style="border-right: 1px solid #A3B8D8;">
+                                    <v-row justify="center">
+                                        <v-col cols="4" class="text-center">
+                                            <a href="https://www.instagram.com/silviaaferreiira/" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                                <i class="fa-brands fa-instagram" style="cursor: pointer;"></i>
+                                            </a>
+                                        </v-col>
+                                        <v-col cols="4" class="text-center">
+                                            <a href="https://www.facebook.com/Silviaferreira204" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                                <i class="fa-brands fa-facebook" style="cursor: pointer;">
+                                                </i>
+                                            </a>
+                                        </v-col>
+                                        <v-col cols="4" class="text-center">
+                                            <a href="https://wa.me/910398401" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                                <i class="fa-brands fa-whatsapp" style="cursor: pointer;">
+                                                </i>
+                                            </a>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+
+                                <!-- Martins Socials -->
+                                <v-col cols="6">
+                                    <v-row justify="center">
+                                        <v-col cols="4" class="text-center">
+                                            <a href="https://www.instagram.com/joao_martins29/" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                                <i class="fa-brands fa-instagram" style="cursor: pointer;"></i>
+                                            </a>
+                                        </v-col>
+                                        <v-col cols="4" class="text-center">
+                                            <a href="https://www.facebook.com/tuttashu/" style="text-decoration: none; color: #A3B8D8;">
+                                                <i class="fa-brands fa-facebook" style="cursor: pointer;"></i>
+                                            </a>
+                                        </v-col>
+                                        <v-col cols="4" class="text-center">
+                                            <a href="https://wa.me/915312862" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                                <i class="fa-brands fa-whatsapp" style="cursor: pointer;">
+                                                </i>
+                                            </a>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </footer>
         </v-main>
