@@ -42,7 +42,7 @@
             <section id="countdown" class="countdown-section">
                 <v-container>
                     <v-row justify="center" align="center" class="fill-height">
-                        <v-col cols="12" sm="10" md="8" lg="6">
+                        <v-col cols="12" sm="10" md="8" lg="6" class="countdown-row">
                             <!-- Card Elegante -->
 
                             <!-- Title -->
@@ -109,11 +109,12 @@
                         <v-col cols="12" md="8" lg="6">
                             <v-card class="historia-card" elevation="8">
                                 <v-card-text class="pa-8 pa-md-12">
-                                    <div class="text-center">
-                                        <p class="historia-text">
-                                            Uma aventura que começou há muitos anos e que agora escolhe continuar para
-                                            sempre.
-                                        </p>
+                                    <div class="section-header text-center mb-12">
+                                        <h2 class="section-title">Uma Aventura</h2>
+                                        <p class="section-subtitle">que começou há muitos anos e que agora escolhe
+                                            continuar
+                                            para
+                                            sempre</p>
                                     </div>
                                 </v-card-text>
                             </v-card>
@@ -1060,7 +1061,8 @@ onUnmounted(() => {
     z-index: 1;
     background: transparent;
     border-radius: 0px;
-    border: 2px solid #0C2452;
+    border: 0 solid #0C2452;
+    box-shadow: 0px;
 }
 
 .historia-text {
@@ -1297,6 +1299,13 @@ onUnmounted(() => {
 @media (min-width: 769px) {
     .dress-code-card {
         width: 60%;
+    }
+}
+
+@media (min-width: 1281px) {
+    .countdown-row {
+        flex: auto;
+        max-width: 90%;
     }
 }
 
