@@ -11,6 +11,8 @@
                 <v-text-field label="Password" type="password" v-model="form.password" />
 
                 <v-text-field label="Confirm Password" type="password" v-model="form.password_confirmation" />
+                
+                <v-text-field label="Register Token" type="password" v-model="form.token" />
             </v-card-text>
 
             <v-card-actions>
@@ -31,6 +33,7 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
+    token: ''
 })
 
 const submit = () => {

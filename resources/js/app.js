@@ -24,38 +24,17 @@ const vuetify = createVuetify({
             weddingTheme: {
                 dark: false,
                 colors: {
-                    // Paleta 1 - Cores da Imagem (kiss.jpg)
-                    primary: '#4A7C59',      // Verde Montanha
-                    secondary: '#5B8FA3',    // Azul Lago
-                    accent: '#C9B5A0',       // Bege Elegante
-                    error: '#C85A54',        // Vermelho Suave
-                    info: '#78A89A',         // Aqua
-                    success: '#6B9B7F',      // Verde Médio
-                    warning: '#D4A574',      // Dourado Suave
-                    background: '#F8F9FA',   // Branco Gelo
-                    surface: '#FFFFFF',      // Branco Puro
+                    primary: '#0C2452',
+                    secondary: '#B4CCE9',
+                    accent: '#6F8FBF',
 
-                    // Cores adicionais personalizadas
-                    'on-primary': '#FFFFFF',
-                    'on-secondary': '#FFFFFF',
-                    'on-accent': '#1D1D1F',
-                    'on-background': '#1D1D1F',
-                    'on-surface': '#1D1D1F',
-                },
-            },
-            // Tema Dark (opcional) - baseado nas mesmas cores
-            weddingDark: {
-                dark: true,
-                colors: {
-                    primary: '#6B9B7F',      // Verde mais claro para dark mode
-                    secondary: '#78A89A',    // Aqua
-                    accent: '#D4A574',       // Dourado
-                    error: '#D4A5A5',        // Rosa suave
-                    info: '#5B8FA3',
-                    success: '#4A7C59',
-                    warning: '#E8C9A3',
-                    background: '#1A1A1A',
-                    surface: '#2C2C2C',
+                    background: '#F6F9FE',
+                    surface: '#FFFFFF',
+
+                    error: '#B00020',
+                    success: '#2E7D32',
+                    warning: '#F9A825',
+                    info: '#1E88E5',
                 },
             },
         },

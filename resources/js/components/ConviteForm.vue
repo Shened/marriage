@@ -379,8 +379,10 @@
                                                     density="comfortable"></v-checkbox>
 
                                                 <v-expand-transition>
-                                                    <v-card v-if="form.temParceiro" variant="tonal" class="pa-4 mb-4">
-                                                        <h4 class="text-h6 mb-4">Informações do Acompanhante</h4>
+                                                    <v-card v-if="form.temParceiro" variant="outlined" class="pa-4 mb-4 card-parceiro">
+                                                        <v-card-title>
+                                                            <h4 class="text-h6 mb-4">Informações do Acompanhante</h4>
+                                                        </v-card-title>
                                                         <v-row>
                                                             <v-col cols="12" md="6">
                                                                 <v-text-field v-model="form.parceiro.nome"
@@ -411,18 +413,21 @@
                                                     @change="toggleFilhos"></v-checkbox>
 
                                                 <v-expand-transition>
-                                                    <v-card v-if="form.temFilhos" variant="tonal" class="pa-4 mb-4">
+                                                    <v-card v-if="form.temFilhos" variant="outlined"
+                                                        class="pa-4 mb-4 card-filhos" color="primary">
                                                         <div class="d-flex justify-space-between align-center mb-4">
-                                                            <h4 class="text-h6">Informações dos Filhos</h4>
-                                                            <v-btn color="primary" variant="tonal" size="small"
-                                                                @click="addChild" :disabled="loading"
-                                                                prepend-icon="mdi-plus">
+                                                            <v-card-title>
+                                                                <h4 class="text-h6">Informações dos Filhos</h4>
+                                                            </v-card-title>
+                                                            <v-btn color="primary" class="link-button"
+                                                                variant="outlined" size="small" @click="addChild"
+                                                                :disabled="loading" prepend-icon="mdi-plus">
                                                                 Adicionar
                                                             </v-btn>
                                                         </div>
 
                                                         <v-card v-for="(filho, index) in form.filhos" :key="index"
-                                                            variant="outlined" class="mb-3 pa-4">
+                                                            variant="outlined" class="mb-3 pa-4 card-filhos">
                                                             <v-row align="center">
                                                                 <v-col cols="12" sm="5">
                                                                     <v-text-field v-model="filho.nome"
@@ -473,8 +478,20 @@
                                                 <v-btn type="submit" block size="x-large" class="form-button"
                                                     :loading="loading" :disabled="!valid || loading" rounded="lg"
                                                     elevation="2">
-                                                    Confirmar Presença
+                                                    Submeter Resposta
                                                 </v-btn>
+                                            </v-col>
+                                        </v-row>
+                                        <v-row justify="center">
+                                            <v-col cols="12" justify="center" class="text-center mt-8">
+                                                <div class="section-info">
+                                                    <p>
+                                                        Agradecemos que respondam ao questionário mesmo que não vos seja possível estar presentes. 
+                                                    </p>
+                                                    <p>
+                                                        Obrigado!
+                                                    </p>
+                                                </div>
                                             </v-col>
                                         </v-row>
                                     </v-form>
@@ -635,13 +652,16 @@ const addChild = () => {
 
 const removeChild = (index) => {
     form.filhos.splice(index, 1);
+
+    if (form.filhos.length === 0) {
+        form.temFilhos = false;
+    }
 };
 
 const toggleFilhos = () => {
     if (form.temFilhos && form.filhos.length === 0) {
         addChild();
-    }
-    if (!form.temFilhos) {
+    } else {
         form.filhos = [];
     }
 };
@@ -1061,7 +1081,7 @@ onUnmounted(() => {
     background: transparent;
     border-radius: 0px;
     border: 0 solid #0C2452;
-    box-shadow: 0px;
+    box-shadow: 0 0 0 0 !important;
 }
 
 .historia-text {
@@ -1118,6 +1138,7 @@ onUnmounted(() => {
 .link-button:hover {
     background-color: #0C2452 !important;
     border-color: #ffffff !important;
+    color: #ffffff !important;
 }
 
 .link-button:hover a {
@@ -1270,6 +1291,11 @@ onUnmounted(() => {
 .footer-copyright {
     font-size: clamp(0.8rem, 1.3vw, 0.9rem);
     color: #A3B8D8;
+}
+
+.card-filhos, .card-parceiro {
+    border: 2px solid;
+    border-radius: 0px !important;
 }
 
 /* ====================================

@@ -84,6 +84,7 @@ return [
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
+    'register_token' => env('REGISTER_TOKEN'),
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

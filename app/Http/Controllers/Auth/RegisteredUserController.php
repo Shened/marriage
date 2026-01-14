@@ -30,11 +30,18 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        'register_token' => ['required', 'string'],
+    ]);
+
+    if ($request->register_token !== config('app.register_token')) {
+        return back()->withErrors([
+            'register_token' => 'Código de acesso inválido.',
         ]);
+    }
 
         $user = User::create([
             'name' => $request->name,
