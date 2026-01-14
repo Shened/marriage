@@ -976,7 +976,6 @@ onUnmounted(() => {
     text-align: center;
     position: relative;
     z-index: 1;
-    text-shadow: 0 2px 12px rgba(74, 124, 89, 0.2);
 }
 
 .countdown-divider {
@@ -1007,23 +1006,23 @@ onUnmounted(() => {
     font-style: italic;
     line-height: 0.9;
     margin-bottom: 0.8rem;
-    text-shadow: 0 0 20px rgba(74, 124, 89, 0.2),
-        0 4px 12px rgba(74, 124, 89, 0.15);
+    /* text-shadow: 0 0 20px rgba(74, 124, 89, 0.2),
+        0 4px 12px rgba(74, 124, 89, 0.15); */
     letter-spacing: -2px;
     transition: all 0.3s ease;
 }
 
 .countdown-item:hover .countdown-value {
     transform: scale(1.05);
-    text-shadow: 0 0 30px rgba(74, 124, 89, 0.3),
-        0 4px 16px rgba(74, 124, 89, 0.2);
+    /* text-shadow: 0 0 30px rgba(74, 124, 89, 0.3),
+        0 4px 16px rgba(74, 124, 89, 0.2); */
 }
 
 .countdown-label {
     font-size: clamp(0.8rem, 2vw, 1rem);
     font-weight: 500;
     letter-spacing: 3px;
-    color: var(--secondary-color);
+    color: #0C2452;
     text-transform: uppercase;
     opacity: 0.85;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
