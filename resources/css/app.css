@@ -1,0 +1,13 @@
+/* App CSS - Estilos globais e do ConviteForm - VERSÃO RESPONSIVA */
+
+:root {
+    --background: #B4CCE9;
+    --background-alt: #DCE6F7;
+    --text: #4A4A4A;
+    --text-alt: #6E6E6E;
+    --color: #0C2452; /* rgb(12, 36, 82) */
+    --border: #A3B8D8;
+    --accent: #5B8FA3;
+    --accent-alt: #78A89A;
+    --hover: #F0E1D8;
+}
