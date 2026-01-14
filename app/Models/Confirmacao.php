@@ -21,6 +21,7 @@ class Confirmacao extends Model
      */
     protected $fillable = [
         'nome',
+        'apelido',
         'idade',
         'email',
         'telefone',

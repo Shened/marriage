@@ -143,7 +143,7 @@
                             <v-img :src="getImage('foto9.jpeg')" height="300" cover class="mb-2"></v-img>
                         </v-col>
                         <v-col cols="12" md="3">
-                            <v-img :src="getImage('foto18.jpeg')" height="146" cover class="mb-2"></v-img>
+                            <v-img :src="getImage('foto19.jpeg')" height="146" cover class="mb-2"></v-img>
                             <v-img :src="getImage('foto10.jpeg')" height="146" cover class="mb-2"></v-img>
                         </v-col>
                         <v-col cols="12" md="3">
@@ -162,15 +162,15 @@
                         <!-- Última linha: quatro médias -->
 
                         <v-col cols="12" md="3">
-                            <v-img :src="getImage('foto17.jpeg')" height="146" cover class="mb-2"></v-img>
-                            <v-img :src="getImage('foto8.jpeg')" height="146" cover class="mb-2"></v-img>
+                            <v-img :src="getImage('foto18.jpeg')" height="146" cover class="mb-2"></v-img>
+                            <v-img :src="getImage('foto22.jpeg')" height="146" cover class="mb-2"></v-img>
                         </v-col>
                         <v-col cols="12" md="6">
                             <v-img :src="getImage('foto19.jpeg')" height="300" cover class="mb-2"></v-img>
                         </v-col>
                         <v-col cols="12" md="3">
-                            <v-img :src="getImage('foto17.jpeg')" height="146" cover class="mb-2"></v-img>
-                            <v-img :src="getImage('foto18.jpeg')" height="146" cover class="mb-2"></v-img>
+                            <v-img :src="getImage('foto20.jpeg')" height="146" cover class="mb-2"></v-img>
+                            <v-img :src="getImage('foto21.jpeg')" height="146" cover class="mb-2"></v-img>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -371,107 +371,121 @@
                                             </v-col>
                                         </v-row>
 
-                                        <!-- Acompanhante -->
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <v-checkbox v-model="form.temParceiro" label="Irei acompanhado(a)"
-                                                    :disabled="loading" color="primary"
-                                                    density="comfortable"></v-checkbox>
+                                        <v-expand-transition>
+                                            <div v-if="form.presenca == 'sim' || form.presenca == presencaOptions[0]"
+                                                class="fade-delay">
+                                                <!-- Acompanhante -->
+                                                <v-row>
+                                                    <v-col cols="12">
+                                                        <v-checkbox v-model="form.temParceiro"
+                                                            label="Irei acompanhado(a)" :disabled="loading"
+                                                            color="primary" density="comfortable"></v-checkbox>
+                                                        <v-expand-transition>
+                                                            <v-card v-if="form.temParceiro" variant="outlined"
+                                                                class="pa-4 mb-4 card-parceiro fade-delay">
+                                                                <v-card-title>
+                                                                    <h4 class="text-h6 mb-4">Informações do Acompanhante
+                                                                    </h4>
+                                                                </v-card-title>
+                                                                <v-row>
+                                                                    <v-col cols="12" md="6">
+                                                                        <v-text-field v-model="form.parceiro.nome"
+                                                                            label="Nome do acompanhante *"
+                                                                            variant="outlined"
+                                                                            :rules="form.temParceiro ? [rules.required] : []"
+                                                                            :disabled="loading" color="primary"
+                                                                            density="comfortable"></v-text-field>
+                                                                    </v-col>
+                                                                    <v-col cols="12" md="6">
+                                                                        <v-text-field v-model="form.parceiro.idade"
+                                                                            label="Idade *" variant="outlined"
+                                                                            type="number"
+                                                                            :rules="form.temParceiro ? [rules.required, rules.integer] : []"
+                                                                            :disabled="loading" color="primary"
+                                                                            density="comfortable"></v-text-field>
+                                                                    </v-col>
+                                                                </v-row>
+                                                            </v-card>
+                                                        </v-expand-transition>
+                                                    </v-col>
+                                                </v-row>
+                                                <!-- Filhos -->
+                                                <v-row>
+                                                    <v-col cols="12">
+                                                        <v-checkbox v-model="form.temFilhos"
+                                                            label="Tenho filhos menores que irão comigo"
+                                                            :disabled="loading" color="primary" density="comfortable"
+                                                            @change="toggleFilhos"></v-checkbox>
 
-                                                <v-expand-transition>
-                                                    <v-card v-if="form.temParceiro" variant="outlined" class="pa-4 mb-4 card-parceiro">
-                                                        <v-card-title>
-                                                            <h4 class="text-h6 mb-4">Informações do Acompanhante</h4>
-                                                        </v-card-title>
-                                                        <v-row>
-                                                            <v-col cols="12" md="6">
-                                                                <v-text-field v-model="form.parceiro.nome"
-                                                                    label="Nome do acompanhante *" variant="outlined"
-                                                                    :rules="form.temParceiro ? [rules.required] : []"
-                                                                    :disabled="loading" color="primary"
-                                                                    density="comfortable"></v-text-field>
-                                                            </v-col>
-                                                            <v-col cols="12" md="6">
-                                                                <v-text-field v-model="form.parceiro.idade"
-                                                                    label="Idade *" variant="outlined" type="number"
-                                                                    :rules="form.temParceiro ? [rules.required, rules.integer] : []"
-                                                                    :disabled="loading" color="primary"
-                                                                    density="comfortable"></v-text-field>
-                                                            </v-col>
-                                                        </v-row>
-                                                    </v-card>
-                                                </v-expand-transition>
-                                            </v-col>
-                                        </v-row>
+                                                        <v-expand-transition>
+                                                            <v-card v-if="form.temFilhos" variant="outlined"
+                                                                class="pa-4 mb-4 card-filhos fade-delay"
+                                                                color="primary">
+                                                                <div
+                                                                    class="d-flex justify-space-between align-center mb-4">
+                                                                    <v-card-title>
+                                                                        <h4 class="text-h6">Informações dos Filhos</h4>
+                                                                    </v-card-title>
+                                                                    <v-btn color="primary" class="link-button"
+                                                                        variant="outlined" size="small"
+                                                                        @click="addChild" :disabled="loading"
+                                                                        prepend-icon="mdi-plus">
+                                                                        Adicionar
+                                                                    </v-btn>
+                                                                </div>
 
-                                        <!-- Filhos -->
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <v-checkbox v-model="form.temFilhos"
-                                                    label="Tenho filhos que irão comigo" :disabled="loading"
-                                                    color="primary" density="comfortable"
-                                                    @change="toggleFilhos"></v-checkbox>
+                                                                <v-card v-for="(filho, index) in form.filhos"
+                                                                    :key="index" variant="outlined"
+                                                                    class="mb-3 pa-4 card-filhos">
+                                                                    <v-row align="center">
+                                                                        <v-col cols="12" sm="5">
+                                                                            <v-text-field v-model="filho.nome"
+                                                                                :label="`Nome do filho ${index + 1} *`"
+                                                                                variant="outlined" density="compact"
+                                                                                :rules="[rules.required]"
+                                                                                :disabled="loading"
+                                                                                color="primary"></v-text-field>
+                                                                        </v-col>
+                                                                        <v-col cols="12" sm="5">
+                                                                            <v-text-field v-model="filho.idade"
+                                                                                label="Idade *" variant="outlined"
+                                                                                density="compact" type="number"
+                                                                                :rules="[rules.required, rules.integer, rules.maxAge]"
+                                                                                :disabled="loading"
+                                                                                color="primary"></v-text-field>
+                                                                        </v-col>
+                                                                        <v-col cols="12" sm="2" class="text-center">
+                                                                            <v-btn icon="mdi-delete" color="error"
+                                                                                variant="text"
+                                                                                @click="removeChild(index)"
+                                                                                :disabled="loading"></v-btn>
+                                                                        </v-col>
+                                                                    </v-row>
+                                                                </v-card>
+                                                            </v-card>
+                                                        </v-expand-transition>
+                                                    </v-col>
+                                                </v-row>
 
-                                                <v-expand-transition>
-                                                    <v-card v-if="form.temFilhos" variant="outlined"
-                                                        class="pa-4 mb-4 card-filhos" color="primary">
-                                                        <div class="d-flex justify-space-between align-center mb-4">
-                                                            <v-card-title>
-                                                                <h4 class="text-h6">Informações dos Filhos</h4>
-                                                            </v-card-title>
-                                                            <v-btn color="primary" class="link-button"
-                                                                variant="outlined" size="small" @click="addChild"
-                                                                :disabled="loading" prepend-icon="mdi-plus">
-                                                                Adicionar
-                                                            </v-btn>
-                                                        </div>
+                                                <!-- Restrições -->
+                                                <v-row>
+                                                    <v-col cols="12">
+                                                        <v-checkbox v-model="form.temRestricoes"
+                                                            label="Restrições Alimentares ou Observações"
+                                                            :disabled="loading" color="primary"
+                                                            density="comfortable"></v-checkbox>
 
-                                                        <v-card v-for="(filho, index) in form.filhos" :key="index"
-                                                            variant="outlined" class="mb-3 pa-4 card-filhos">
-                                                            <v-row align="center">
-                                                                <v-col cols="12" sm="5">
-                                                                    <v-text-field v-model="filho.nome"
-                                                                        :label="`Nome do filho ${index + 1} *`"
-                                                                        variant="outlined" density="compact"
-                                                                        :rules="[rules.required]" :disabled="loading"
-                                                                        color="primary"></v-text-field>
-                                                                </v-col>
-                                                                <v-col cols="12" sm="5">
-                                                                    <v-text-field v-model="filho.idade" label="Idade *"
-                                                                        variant="outlined" density="compact"
-                                                                        type="number"
-                                                                        :rules="[rules.required, rules.integer]"
-                                                                        :disabled="loading"
-                                                                        color="primary"></v-text-field>
-                                                                </v-col>
-                                                                <v-col cols="12" sm="2" class="text-center">
-                                                                    <v-btn icon="mdi-delete" color="error"
-                                                                        variant="text" @click="removeChild(index)"
-                                                                        :disabled="loading"></v-btn>
-                                                                </v-col>
-                                                            </v-row>
-                                                        </v-card>
-                                                    </v-card>
-                                                </v-expand-transition>
-                                            </v-col>
-                                        </v-row>
-
-                                        <!-- Restrições -->
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <v-checkbox v-model="form.temRestricoes"
-                                                    label="Restrições Alimentares ou Observações" :disabled="loading"
-                                                    color="primary" density="comfortable"></v-checkbox>
-
-                                                <v-expand-transition>
-                                                    <v-textarea v-if="form.temRestricoes" v-model="form.restricoes"
-                                                        label="Descreva suas restrições ou observações"
-                                                        variant="outlined" rows="3" :disabled="loading"
-                                                        color="primary"></v-textarea>
-                                                </v-expand-transition>
-                                            </v-col>
-                                        </v-row>
-
+                                                        <v-expand-transition>
+                                                            <v-textarea v-if="form.temRestricoes"
+                                                                v-model="form.restricoes"
+                                                                label="Descreva suas restrições ou observações"
+                                                                variant="outlined" rows="3" :disabled="loading"
+                                                                color="primary" class="fade-delay"></v-textarea>
+                                                        </v-expand-transition>
+                                                    </v-col>
+                                                </v-row>
+                                            </div>
+                                        </v-expand-transition>
                                         <!-- Submit Button -->
                                         <v-row>
                                             <v-col cols="12">
@@ -486,7 +500,9 @@
                                             <v-col cols="12" justify="center" class="text-center mt-8">
                                                 <div class="section-info">
                                                     <p>
-                                                        Agradecemos que respondam ao questionário mesmo que não vos seja possível estar presentes. 
+                                                        Agradecemos que respondam ao questionário mesmo que não vos seja
+                                                        possível
+                                                        estar presentes.
                                                     </p>
                                                     <p>
                                                         Obrigado!
@@ -522,7 +538,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
+import { ref, reactive, watch, computed, onMounted, onUnmounted } from 'vue';
 import MusicPlayer from '@/components/MusicPlayer.vue'
 import axios from 'axios';
 
@@ -623,6 +639,9 @@ const rules = {
     mobile: value => {
         const pattern = /^\+?[0-9]{7,15}$/;
         return pattern.test(value) || 'Número de telefone inválido';
+    },
+    maxAge: value => {
+        17 || 'A idade máxima permitida é 17 anos'
     }
 };
 
@@ -642,6 +661,18 @@ const scrollToSection = (sectionId) => {
         });
     }
 };
+
+watch(
+    () => form.presenca,
+    (novoValor) => {
+        const respostasNegativas = ['infelizmente não poderei comparecer', 'não'];
+        if (respostasNegativas.includes(novoValor?.trim().toLowerCase())) {
+            form.temFilhos = false;
+            form.temParceiro = false;
+            form.filhos = []
+        }
+    }
+);
 
 const addChild = () => {
     form.filhos.push({
@@ -780,6 +811,13 @@ onUnmounted(() => {
     --accent: #5B8FA3;
     --accent-alt: #78A89A;
     --hover: #F0E1D8;
+}
+
+.fade-delay {
+    transition-delay: 0.2s;
+    /* atraso de 0.3s */
+    transition-duration: 0.5s;
+    /* duração da animação */
 }
 
 .hero-section {
@@ -1293,7 +1331,8 @@ onUnmounted(() => {
     color: #A3B8D8;
 }
 
-.card-filhos, .card-parceiro {
+.card-filhos,
+.card-parceiro {
     border: 2px solid;
     border-radius: 0px !important;
 }

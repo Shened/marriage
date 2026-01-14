@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="confirmacao in confirmacoes.data" :key="confirmacao.id">
-                        <td>{{ confirmacao.nome }}</td>
+                        <td>{{ confirmacao.nome }} {{ confirmacao.apelido }}</td>
                         <td>{{ confirmacao.idade }} anos</td>
                         <td>
                             <span :class="['badge', `badge-${confirmacao.presenca}`]">
@@ -109,7 +109,7 @@
 
                 <div class="detail-group">
                     <div class="detail-label">Nome Completo</div>
-                    <div class="detail-value">{{ selectedConfirmacao.nome }}</div>
+                    <div class="detail-value">{{ selectedConfirmacao.nome }} {{ selectedConfirmacao.apelido }}</div>
                 </div>
 
                 <div class="detail-group">
@@ -226,6 +226,7 @@ const showDetails = async (confirmacao) => {
     try {
         const response = await axios.get(`/confirmacoes/${confirmacao.id}`);
         if (response.data.success) selectedConfirmacao.value = response.data.data;
+        console.log(selectedConfirmacao)
     } catch (err) {
         console.error('Erro ao carregar detalhes:', err);
     }

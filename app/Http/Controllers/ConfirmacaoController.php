@@ -17,6 +17,7 @@ class ConfirmacaoController extends Controller
         // Validação
         $validator = Validator::make($request->all(), [
             'nome' => 'required|string|max:255',
+            'apelido' => 'required|string|max:255',
             'idade' => 'required|integer|min:0|max:120',
             'email' => 'nullable|email|max:255',
             'telefone' => 'nullable|string|max:50',
@@ -32,6 +33,7 @@ class ConfirmacaoController extends Controller
             'filhos.*.idade' => 'nullable|integer|min:0|max:18',
         ], [
             'nome.required' => 'O nome é obrigatório.',
+            'apelido.required' => 'O apelido é obrigatório.',
             'idade.required' => 'A idade é obrigatória.',
             'idade.min' => 'A idade deve ser maior que 0.',
             'idade.max' => 'A idade deve ser menor que 120.',
@@ -54,6 +56,7 @@ class ConfirmacaoController extends Controller
             // Criar confirmação principal
             $confirmacao = Confirmacao::create([
                 'nome' => $request->nome,
+                'apelido' => $request->apelido,
                 'idade' => $request->idade,
                 'email' => $request->email,
                 'telefone' => $request->telefone,
@@ -124,8 +127,14 @@ class ConfirmacaoController extends Controller
             $busca = $request->busca;
             $query->where(function($q) use ($busca) {
                 $q->where('nome', 'like', "%{$busca}%")
-                    ->orWhere('email', 'like', "%{$busca}%")
-                    ->orWhere('telefone', 'like', "%{$busca}%");
+                    ->orWhere('telefone', 'like', "%{$busca}%")
+                    ->orWhere('idade', 'like', "%{$busca}%")
+                    ->orWhereRaw("CONCAT(nome, ' ', apelido) LIKE ?", "%{$busca}%")
+                    ->orWhereRaw("CONCAT(nome, ' ', apelido) LIKE ?", "%{$busca}%")
+                    ->orWhereRaw("CONCAT(nome, ' ', apelido, ' ', idade) LIKE ?", "%{$busca}%")
+                    ->orWhereRaw("CONCAT(nome, ' ', idade) LIKE ?", "%{$busca}%")
+                    ->orWhereRaw("CONCAT(apelido, ' ', idade) LIKE ?", "%{$busca}%")
+                    ->orWhere('apelido', 'like', "%{$busca}%");
             });
         }
 
