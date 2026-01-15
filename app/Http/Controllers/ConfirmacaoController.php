@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Confirmacao;
+use App\Notifications\NovaConfirmacaoPresenca;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class ConfirmacaoController extends Controller
@@ -14,70 +16,58 @@ class ConfirmacaoController extends Controller
      */
     public function store(Request $request)
     {
-        // Validação
         $validator = Validator::make($request->all(), [
             'nome' => 'required|string|max:255',
             'apelido' => 'required|string|max:255',
             'idade' => 'required|integer|min:0|max:120',
             'email' => 'nullable|email|max:255',
             'telefone' => 'nullable|string|max:50',
-            'presenca' => 'required|in:sim,nao',
+            'presenca' => 'required|in:sim,não',
             'temParceiro' => 'boolean',
             'temFilhos' => 'boolean',
             'restricoes' => 'nullable|string',
             'parceiro' => 'nullable|array',
-            'parceiro.nome' => 'required_if:temParceiro,true|string|max:255',
+            'parceiro.nome' => 'required_if:temParceiro,1|string|max:255',
             'parceiro.idade' => 'nullable|integer|min:0|max:120',
             'filhos' => 'nullable|array',
             'filhos.*.nome' => 'required|string|max:255',
             'filhos.*.idade' => 'nullable|integer|min:0|max:18',
-        ], [
-            'nome.required' => 'O nome é obrigatório.',
-            'apelido.required' => 'O apelido é obrigatório.',
-            'idade.required' => 'A idade é obrigatória.',
-            'idade.min' => 'A idade deve ser maior que 0.',
-            'idade.max' => 'A idade deve ser menor que 120.',
-            'email.email' => 'Email inválido.',
-            'presenca.required' => 'Por favor, confirme sua presença.',
-            'presenca.in' => 'Valor de presença inválido.',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Erro de validação.',
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 422);
         }
 
-        try {
-            DB::beginTransaction();
+        $data = $validator->validated();
 
-            // Criar confirmação principal
+        DB::beginTransaction();
+
+        try {
             $confirmacao = Confirmacao::create([
-                'nome' => $request->nome,
-                'apelido' => $request->apelido,
-                'idade' => $request->idade,
-                'email' => $request->email,
-                'telefone' => $request->telefone,
-                'presenca' => $request->presenca,
-                'tem_parceiro' => $request->temParceiro ?? false,
-                'tem_filhos' => $request->temFilhos ?? false,
-                'restricoes' => $request->restricoes,
+                'nome' => $data['nome'],
+                'apelido' => $data['apelido'],
+                'idade' => $data['idade'],
+                'email' => $data['email'] ?? null,
+                'telefone' => $data['telefone'] ?? null,
+                'presenca' => $data['presenca'],
+                'tem_parceiro' => (bool) ($data['temParceiro'] ?? false),
+                'tem_filhos' => (bool) ($data['temFilhos'] ?? false),
+                'restricoes' => $data['restricoes'] ?? null,
                 'ip_address' => $request->ip(),
             ]);
 
-            // Criar parceiro se houver
-            if ($request->temParceiro && !empty($request->parceiro['nome'])) {
+            if (!empty($data['parceiro']['nome'] ?? null)) {
                 $confirmacao->parceiro()->create([
-                    'nome' => $request->parceiro['nome'],
-                    'idade' => $request->parceiro['idade'] ?? null,
+                    'nome' => $data['parceiro']['nome'],
+                    'idade' => $data['parceiro']['idade'] ?? null,
                 ]);
             }
 
-            // Criar filhos se houver
-            if ($request->temFilhos && !empty($request->filhos)) {
-                foreach ($request->filhos as $filho) {
+            if (!empty($data['filhos'] ?? [])) {
+                foreach ($data['filhos'] as $filho) {
                     if (!empty($filho['nome'])) {
                         $confirmacao->filhos()->create([
                             'nome' => $filho['nome'],
@@ -89,23 +79,22 @@ class ConfirmacaoController extends Controller
 
             DB::commit();
 
+            Notification::route('mail', 'joao.psm98@gmail.com')
+                ->notify(new NovaConfirmacaoPresenca($confirmacao));
+
             return response()->json([
                 'success' => true,
-                'message' => 'Confirmação registrada com sucesso!',
-                'data' => [
-                    'id' => $confirmacao->id,
-                    'nome' => $confirmacao->nome,
-                    'presenca' => $confirmacao->presenca,
-                ]
+                'message' => 'Confirmação registada com sucesso!',
             ], 201);
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
-            
+
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Erro ao processar confirmação. Por favor, tente novamente.',
-                'error' => config('app.debug') ? $e->getMessage() : null
+                'message' => 'Erro ao processar confirmação.',
             ], 500);
         }
     }
@@ -123,9 +112,9 @@ class ConfirmacaoController extends Controller
         }
 
         // Busca por nome, email ou telefone
-        if ($request->has('busca') && !empty($request->busca)) {
+        if ($request->has('busca') && ! empty($request->busca)) {
             $busca = $request->busca;
-            $query->where(function($q) use ($busca) {
+            $query->where(function ($q) use ($busca) {
                 $q->where('nome', 'like', "%{$busca}%")
                     ->orWhere('telefone', 'like', "%{$busca}%")
                     ->orWhere('idade', 'like', "%{$busca}%")
@@ -142,7 +131,7 @@ class ConfirmacaoController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $confirmacoes
+            'data' => $confirmacoes,
         ]);
     }
 
@@ -155,7 +144,7 @@ class ConfirmacaoController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $confirmacao
+            'data' => $confirmacao,
         ]);
     }
 
@@ -180,13 +169,14 @@ class ConfirmacaoController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $stats
+            'data' => $stats,
         ]);
     }
 
     public function destroy(Confirmacao $confirmacao)
     {
         $confirmacao->delete();
+
         return response()->json(['success' => true]);
     }
 }

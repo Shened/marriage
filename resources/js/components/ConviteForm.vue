@@ -808,13 +808,15 @@ const submitForm = async () => {
         form.apelido = '';
         form.idade = '';
         form.telefone = '';
-        form.presenca = '';
+        form.presenca = 'sim'/'não';
         form.temParceiro = false;
         form.temFilhos = false;
         form.temRestricoes = false;
         form.restricoes = '';
         form.parceiro = { nome: '', idade: '' };
         form.filhos = [];
+
+        form.value = { ...form };
 
         if (formRef.value) {
             formRef.value.reset();
