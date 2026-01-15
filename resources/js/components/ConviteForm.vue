@@ -246,7 +246,8 @@
                                                     <v-avatar color="surface-variant woman" size="64"></v-avatar>
                                                 </v-col>
                                                 <v-col cols="12">
-                                                    <p class="section-subtitle">Para Elas</p>
+                                                    <p class="section-subtitle">Tons reservados </p>
+                                                    <p class="section-subtitle">para as <b>Madrinhas</b></p>
                                                 </v-col>
                                             </v-row>
                                         </v-col>
@@ -257,7 +258,8 @@
                                                     <v-avatar color="surface-variant man" size="64"></v-avatar>
                                                 </v-col>
                                                 <v-col cols="12">
-                                                    <p class="section-subtitle">Para Eles</p>
+                                                    <p class="section-subtitle">Tons reservados </p>
+                                                    <p class="section-subtitle">para os <b>Padrinhos</b></p>
                                                 </v-col>
                                             </v-row>
                                         </v-col>
@@ -311,6 +313,8 @@
                             <div class="section-header text-center mb-8">
                                 <h2 class="section-title">Confirme a sua presença</h2>
                                 <p class="section-subtitle">Mal podemos esperar para celebrar convosco</p>
+                                <br>
+                                <p class="section-subtitle">Pedimos que confirmem até ao dia <b>04/06/2026</b></p>
                             </div>
 
                             <v-card class="form-card" elevation="4">
@@ -542,10 +546,10 @@
                         </v-col>
                         <v-col cols="12" md="6">
                             <v-row>
-                                <v-col cols="12" md="6" class="text-center">
+                                <v-col cols="6" md="6" class="text-center">
                                     <p class="footer-text">Sílvia</p>
                                 </v-col>
-                                <v-col cols="12" md="6" class="text-center">
+                                <v-col cols="6" md="6" class="text-center">
                                     <p class="footer-text">João</p>
                                 </v-col>
                             </v-row>
@@ -554,18 +558,21 @@
                                 <v-col cols="6" style="border-right: 1px solid #A3B8D8;">
                                     <v-row justify="center">
                                         <v-col cols="4" class="text-center">
-                                            <a href="https://www.instagram.com/silviaaferreiira/" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                            <a href="https://www.instagram.com/silviaaferreiira/" target="_blank"
+                                                style="text-decoration: none; color: #A3B8D8;">
                                                 <i class="fa-brands fa-instagram" style="cursor: pointer;"></i>
                                             </a>
                                         </v-col>
                                         <v-col cols="4" class="text-center">
-                                            <a href="https://www.facebook.com/Silviaferreira204" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                            <a href="https://www.facebook.com/Silviaferreira204" target="_blank"
+                                                style="text-decoration: none; color: #A3B8D8;">
                                                 <i class="fa-brands fa-facebook" style="cursor: pointer;">
                                                 </i>
                                             </a>
                                         </v-col>
                                         <v-col cols="4" class="text-center">
-                                            <a href="https://wa.me/910398401" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                            <a href="https://wa.me/910398401" target="_blank"
+                                                style="text-decoration: none; color: #A3B8D8;">
                                                 <i class="fa-brands fa-whatsapp" style="cursor: pointer;">
                                                 </i>
                                             </a>
@@ -577,17 +584,20 @@
                                 <v-col cols="6">
                                     <v-row justify="center">
                                         <v-col cols="4" class="text-center">
-                                            <a href="https://www.instagram.com/joao_martins29/" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                            <a href="https://www.instagram.com/joao_martins29/" target="_blank"
+                                                style="text-decoration: none; color: #A3B8D8;">
                                                 <i class="fa-brands fa-instagram" style="cursor: pointer;"></i>
                                             </a>
                                         </v-col>
                                         <v-col cols="4" class="text-center">
-                                            <a href="https://www.facebook.com/tuttashu/" style="text-decoration: none; color: #A3B8D8;">
+                                            <a href="https://www.facebook.com/tuttashu/"
+                                                style="text-decoration: none; color: #A3B8D8;">
                                                 <i class="fa-brands fa-facebook" style="cursor: pointer;"></i>
                                             </a>
                                         </v-col>
                                         <v-col cols="4" class="text-center">
-                                            <a href="https://wa.me/915312862" target="_blank" style="text-decoration: none; color: #A3B8D8;">
+                                            <a href="https://wa.me/915312862" target="_blank"
+                                                style="text-decoration: none; color: #A3B8D8;">
                                                 <i class="fa-brands fa-whatsapp" style="cursor: pointer;">
                                                 </i>
                                             </a>
@@ -597,6 +607,7 @@
                             </v-row>
                         </v-col>
                     </v-row>
+                    <div v-if="isMobile" class="my-4 mt-10"></div>
                 </v-container>
             </footer>
         </v-main>
@@ -607,6 +618,8 @@
 import { ref, reactive, watch, computed, onMounted, onUnmounted } from 'vue';
 import MusicPlayer from '@/components/MusicPlayer.vue'
 import axios from 'axios';
+
+const isMobile = window.innerWidth <= 768;
 
 // Props
 const showMusicPlayer = ref(true);

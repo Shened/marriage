@@ -228,8 +228,8 @@ onUnmounted(() => {
 /* Responsivo para mobile */
 @media (max-width: 480px) {
     .music-player {
-        bottom: 20px;
-        right: 20px;
+        bottom: 15px;
+        right: 15px;
     }
 
     .music-toggle {
