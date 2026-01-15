@@ -314,7 +314,7 @@
                                 <h2 class="section-title">Confirme a sua presença</h2>
                                 <p class="section-subtitle">Mal podemos esperar para celebrar convosco</p>
                                 <br>
-                                <p class="section-subtitle">Pedimos que confirmem até ao dia <b>04/06/2026</b></p>
+                                <p class="section-subtitle">Pedimos que confirmem até ao dia <b>31/05/2026</b></p>
                             </div>
 
                             <v-card class="form-card" elevation="4">
