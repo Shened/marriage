@@ -711,6 +711,18 @@ const loading = ref(false);
 const successMessage = ref('');
 const errors = ref({});
 
+const defaultForm = JSON.parse(JSON.stringify(form));
+
+const resetForm = () => {
+    Object.keys(defaultForm).forEach(key => {
+        if (typeof defaultForm[key] === 'object' && defaultForm[key] !== null) {
+            form[key] = JSON.parse(JSON.stringify(defaultForm[key]));
+        } else {
+            form[key] = defaultForm[key];
+        }
+    });
+};
+
 // Validation Rules
 const rules = {
     required: value => !!value || 'Campo obrigatório',
@@ -777,22 +789,6 @@ const toggleFilhos = () => {
 };
 
 const submitForm = async () => {
-    const payload = { ...form }
-
-    if (!form.temParceiro) {
-        delete payload.parceiro;
-    }
-
-    // Se não tiver filhos, remove
-    if (!form.temFilhos) {
-        delete payload.filhos;
-    }
-
-    payload.presenca = payload.presenca == presencaOptions[0] ?
-        'sim' :
-        'não'
-
-
     if (!valid.value) return;
 
     loading.value = true;
@@ -800,31 +796,35 @@ const submitForm = async () => {
     successMessage.value = '';
 
     try {
-        const response = await axios.post('/confirmacoes', payload);
+        // Cria payload seguro
+        const payload = {
+            nome: form.nome,
+            apelido: form.apelido,
+            idade: form.idade,
+            telefone: form.telefone,
+            presenca: form.presenca === 'Sim, estarei presente!' ? 'sim' : 'não',
+        };
+
+        if (form.temParceiro) payload.parceiro = { ...form.parceiro };
+        if (form.temFilhos) payload.filhos = [...form.filhos];
+        if (form.temRestricoes) payload.restricoes = form.restricoes;
+
+        // Envio para backend
+        await axios.post('/confirmacoes', payload);
+
         successMessage.value = 'Presença confirmada com sucesso! Obrigado!';
 
-        // Reset form
-        form.nome = '';
-        form.apelido = '';
-        form.idade = '';
-        form.telefone = '';
-        form.presenca = 'sim'/'não';
-        form.temParceiro = false;
-        form.temFilhos = false;
-        form.temRestricoes = false;
-        form.restricoes = '';
-        form.parceiro = { nome: '', idade: '' };
-        form.filhos = [];
+        // Reset do form reactive
+        resetForm();
 
-        form.value = { ...form };
+        // Reset do DOM do form
+        if (formRef.value) formRef.value.reset();
 
-        if (formRef.value) {
-            formRef.value.reset();
-        }
-
+        // Scroll opcional
         setTimeout(() => {
             scrollToSection('confirmacao');
         }, 100);
+
     } catch (error) {
         if (error.response && error.response.data.errors) {
             errors.value = error.response.data.errors;

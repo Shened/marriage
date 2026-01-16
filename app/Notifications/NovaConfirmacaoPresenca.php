@@ -31,11 +31,11 @@ class NovaConfirmacaoPresenca extends Notification
     public function toMail($notifiable)
     {
         // Verificar se confirmou ou não
-        $presencaStatus = $this->confirmacao['presenca'] === 'Sim, estarei presente!' 
+        $presencaStatus = $this->confirmacao['presenca'] === 'sim' 
             ? '✅ CONFIRMOU PRESENÇA' 
             : '❌ NÃO PODERÁ COMPARECER';
 
-        $presencaColor = $this->confirmacao['presenca'] === 'Sim, estarei presente!' 
+        $presencaColor = $this->confirmacao['presenca'] === 'sim' 
             ? '#4A7C59'  // Verde (sua paleta)
             : '#C85A54'; // Vermelho
 
