@@ -7,7 +7,8 @@
                     <img src="/images/heart.jpg" alt="Galeria" />
                 </div>
                 <div class="header-text">
-                    <h1 class="gallery-title">Galeria Partilhada</h1>
+                    <h2 class="gallery-title">Galeria Partilhada</h2>
+                    <h4 class="gallery-title">Sílvia & João</h4>
                     <p class="gallery-subtitle">{{ formattedPhotos.length }} {{ formattedPhotos.length === 1 ?
                         'fotografia' : 'fotografias' }}</p>
                 </div>
@@ -513,7 +514,7 @@ const cancelDelete = () => {
 }
 
 .gallery-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Lora', serif;
     font-size: 2.5rem;
     font-weight: 900;
     margin: 0;
@@ -580,7 +581,7 @@ const cancelDelete = () => {
 }
 
 .empty-state h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Lora', serif;
     font-size: 2rem;
     color: #1a1a2e;
     margin: 0 0 0.5rem;
@@ -747,7 +748,7 @@ const cancelDelete = () => {
 }
 
 .dialog-header h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Lora', serif;
     font-size: 1.75rem;
     margin: 0;
     color: #1a1a2e;
