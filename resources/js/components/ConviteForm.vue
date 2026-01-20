@@ -803,6 +803,9 @@ const submitForm = async () => {
             idade: form.idade,
             telefone: form.telefone,
             presenca: form.presenca === 'Sim, estarei presente!' ? 'sim' : 'não',
+            temParceiro: form.temParceiro,
+            temFilhos: form.temFilhos,
+            temRestricoes: form.temRestricoes
         };
 
         if (form.temParceiro) payload.parceiro = { ...form.parceiro };
