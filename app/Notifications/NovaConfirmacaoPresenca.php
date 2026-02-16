@@ -85,7 +85,7 @@ class NovaConfirmacaoPresenca extends Notification
             })
             ->line('---')
             ->line('**📅 Data de Submissão:** ' . now()->format('d/m/Y H:i:s'))
-            ->action('Ver Todas as Confirmações', url('/admin/dashboard'))
+            ->action('Ver Todas as Confirmações', url('/dashboard'))
             ->line('Este email foi gerado automaticamente pelo site do casamento.');
     }
 
